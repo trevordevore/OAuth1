@@ -519,16 +519,7 @@ class WP_JSON_Authentication_OAuth1 extends WP_JSON_Authentication {
 				break;
 		}
 
-		// Filter out any non-oauth keys so they don't interfere with normalization and signature generation.
-		$oauth_params = array_merge( $params, $oauth_params );
-		unset ($params);
-		$params = array();
-		
-		foreach ( $oauth_params as $param_key => $param_value ) {
-			if (substr($param_key, 0, 6) === 'oauth_') {
-				$params[$param_key] = $param_value;
-			}
-		}
+		$params = array_merge( $params, $oauth_params );
 
 		// Support WP blog roots that point to a folder and not just a domain
 		$home_url_path = parse_url(get_home_url (null,'','http'), PHP_URL_PATH );
